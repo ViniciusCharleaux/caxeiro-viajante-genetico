@@ -5,11 +5,11 @@ import java.util.*;
 public class Main {
 
     //parametros
-    static int numGenerations = 30000;
+    static int numGenerations = 100000;
     static float mutationRate = 0.15f;
     static float selectionRate = 0.4f;
-    static int numPopulacao = 130;
-    static int numGenes = 100; //de 2 a 100
+    static int numPopulacao = 150;
+    static int numGenes = 200; //de 2 a 100
 
     public static ArrayList<ArrayList<Integer>> population = new ArrayList<>(); //população
     public static ArrayList<Integer> bestResult = new ArrayList<>();
@@ -18,7 +18,7 @@ public class Main {
 
     public static void readGraphFile(){
         FileManager fileManager = new FileManager();
-        ArrayList<String> text = fileManager.stringReader("CaixeiroViajante/data/test100.txt");
+        ArrayList<String> text = fileManager.stringReader("data/test200.txt");
                 
         for (int i = 0; i <= numGenes; i++) {
             String line = text.get(i);
@@ -73,11 +73,13 @@ public class Main {
         //faz o cruzamento entre dois individuos
         //pega metade exato de cada genoma pai
 
-        for(int i = 0; i < size; i+=2){
+
+        for(int i = 0; i < numPopulacao; i+=2){
             ArrayList<Integer> individuoCruzado = new ArrayList<>();
 
 
             for(int j = 0; j < size/2; j++){
+
                 int gene = population.get(i).get(j);
                 individuoCruzado.add(gene);
             }
@@ -255,6 +257,8 @@ public class Main {
         long startTime = System.currentTimeMillis();
  
         readGraphFile();
+
+        System.out.println(graph.length);
 
         for(int i = 0; i < numPopulacao; i++ ){
             population.add(createRandomIndi());
